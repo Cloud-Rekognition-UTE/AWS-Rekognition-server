@@ -63,6 +63,26 @@ app.post('/api/setCLI', (req,res)=>{
 	res.send('Ket noi thanh cong')
 })
 
+// Tạo route cho upload ảnh lên s3
+app.post('/api/upload', upload.single('image'), async(req, res)=> {
+    const file = req.file
+    console.log(file);
+    const result = await uploadFile(file)
+    console.log(result);
+    const desc = req.body.description
+    res.send("đã gởi ảnh thành công")
+ })
+
+// Tạo route cho upload target ảnh lên s3
+ app.post('/api/uploadTarget', upload.single('imagetarget'), async(req, res)=> {
+	const file = req.file
+	console.log(file);
+	const result = await uploadFile(file)
+	console.log(result);
+	const desc = req.body.description
+	res.send("đã gởi ảnh target thành công")
+ })
+
 // kiểm tra xem app có chạy đúng port 5000 hay không
 app.listen(5000,()=>{
     console.log('server listen on port 5000');
