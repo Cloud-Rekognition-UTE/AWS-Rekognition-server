@@ -135,6 +135,67 @@ app.post('/api/upload', upload.single('image'), async(req, res)=> {
 		 console.log(data);
 	 })
  })
+
+ // route nhận diện người nổi tiếng
+ app.post('/api/celeb', (req,res)=>{
+    var param = {
+        Image: {
+			S3Object: {
+				Bucket: 'rekognitionimagessss',
+				Name: req.body.images,
+			},
+		},
+    }
+    // console.log(req.body.name);
+	rekogniton.recognizeCelebrities(param, function (err, data) {
+		if (err) console.log(err, err.stack);
+		else res.send({ data: data });
+		console.log(data);
+	});
+})
+
+// route kiểm tra 2 hình ảnh có cùng chung khuôn mặt hay không
+app.post('/api/comparasion', (req,res)=>{
+    var param = {
+		TargetImage: {
+			S3Object: {
+				Bucket: "rekognitionimagessss",
+				Name: req.body.imagesTarget,
+			}
+		},
+		SourceImage: {
+			S3Object: {
+				Bucket: "rekognitionimagessss",
+				Name: req.body.images
+			}
+		},
+		SimilarityThreshold: 0
+    }
+    // console.log(req.body.name);
+	rekogniton.compareFaces(param, function (err, data) {
+		if (err) console.log(err, err.stack);
+		else res.send({ data: data });
+		console.log(data);
+	});
+})
+
+// route nhận diện chữ viết trong ảnh
+app.post("/api/text",(req,res)=>{
+	var param = {
+        Image: {
+			S3Object: {
+				Bucket: 'rekognitionimagessss',
+				Name: req.body.images,
+			},
+		},
+    }
+	rekogniton.detectText(param, function (err, data) {
+		if (err) console.log(err, err.stack);
+		else res.send({ data: data });
+		console.log(data);
+	});
+})
+
 // kiểm tra xem app có chạy đúng port 5000 hay không
 app.listen(5000,()=>{
     console.log('server listen on port 5000');
