@@ -83,6 +83,58 @@ app.post('/api/upload', upload.single('image'), async(req, res)=> {
 	res.send("đã gởi ảnh target thành công")
  })
 
+//kêt nối với aws rekognition
+ const rekogniton = new AWS.Rekognition({ region: 'us-east-1' })
+ //route cho nhận diện vật thể
+ app.post('/api/labels', (req,res)=>{
+	 var param = {
+		 Image: {
+			 S3Object: {
+				 Bucket: 'rekognitionimagess',
+				 Name: req.body.images,
+			 },
+		 }
+	 }
+	 // console.log(req.body.name);
+	 rekogniton.detectLabels(param, function (err, data) {
+		 if (err) console.log(err, err.stack);
+		 else res.send({ data: data });
+		 console.log(data);
+	 });
+ })
+ //route nhận diện kiểm duyệt hình ảnh
+ app.post('/api/moderation',(req,res)=>{
+	 var param = {
+		 Image: {
+			 S3Object: {
+				 Bucket: 'rekognitionimagess',
+				 Name: req.body.images,
+			 },
+		 }
+	 }
+	 rekogniton.detectModerationLabels(param,function(err,data){
+		 if(err) console.log(err, err.stack);
+		 else res.send({data:data})
+		 console.log(data);
+	 })
+ })
+ //route cho phân tích khuôn mặt
+ app.post("/api/facial", (req,res)=>{
+	 var param = {
+		 Image: {
+			 S3Object: {
+				 Bucket: 'rekognitionimagess',
+				 Name: req.body.images,
+			 },
+		 },
+		 Attributes: ['ALL'],
+	 }
+	 rekogniton.detectFaces(param,function(err,data){
+		 if(err) console.log(err, err.stack);
+		 else res.send({data:data})
+		 console.log(data);
+	 })
+ })
 // kiểm tra xem app có chạy đúng port 5000 hay không
 app.listen(5000,()=>{
     console.log('server listen on port 5000');
