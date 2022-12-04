@@ -280,7 +280,25 @@ app.post("/api/deleteFace",(req,res)=>{
 	})
 })
 
-
+//tìm kiếm ảnh tương đồng
+app.post("/api/searching",(req,res)=>{
+	var param = {
+		CollectionId: "Group23",
+		Image: {
+			S3Object: {
+				Bucket: "rekognitionimagess",
+				Name: req.body.imagesLogin
+			}
+		},
+		MaxFaces: 3,
+		FaceMatchThreshold: 85
+	}
+	rekogniton.searchFacesByImage(param, function (err, data) {
+		if (err) return res.send({message:'Không nhận diện được nên không cho đăng nhập'});
+		else res.send({ data: data });
+		console.log(data);
+	})
+})
 
 // kiểm tra xem app có chạy đúng port 5000 hay không
 app.listen(5000,()=>{
