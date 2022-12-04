@@ -20,7 +20,7 @@ const s3 = new S3({
 function uploadFile(file){
     const fileStream = fs.createReadStream(file.path)
     const uploadParams={
-        Bucket:'rekognitionimagesss',
+        Bucket:'rekognitionimagess',
         Body:fileStream,
         Key:file.originalname
     }
@@ -141,7 +141,7 @@ app.post('/api/upload', upload.single('image'), async(req, res)=> {
     var param = {
         Image: {
 			S3Object: {
-				Bucket: 'rekognitionimagessss',
+				Bucket: 'rekognitionimagess',
 				Name: req.body.images,
 			},
 		},
@@ -159,13 +159,13 @@ app.post('/api/comparasion', (req,res)=>{
     var param = {
 		TargetImage: {
 			S3Object: {
-				Bucket: "rekognitionimagessss",
+				Bucket: "rekognitionimagess",
 				Name: req.body.imagesTarget,
 			}
 		},
 		SourceImage: {
 			S3Object: {
-				Bucket: "rekognitionimagessss",
+				Bucket: "rekognitionimagess",
 				Name: req.body.images
 			}
 		},
@@ -184,7 +184,7 @@ app.post("/api/text",(req,res)=>{
 	var param = {
         Image: {
 			S3Object: {
-				Bucket: 'rekognitionimagessss',
+				Bucket: 'rekognitionimagess',
 				Name: req.body.images,
 			},
 		},
