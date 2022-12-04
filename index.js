@@ -253,6 +253,35 @@ app.post("/api/addIndex",(req,res)=>{
 	})
 })
 
+//listing hết các ảnh lưu trong collection
+app.get("/api/listingFace",(req,res)=>{
+	var param = {
+		CollectionId: "Group23",
+	}
+	rekogniton.listFaces(param, function (err, data) {
+		if (err) console.log(err, err.stack);
+		else res.send({ data: data });
+		console.log(data);
+	})
+})
+
+//xóa ảnh index
+app.post("/api/deleteFace",(req,res)=>{
+	var param = {
+		CollectionId: "Group23",
+		FaceIds: [
+			req.body.imgDelete
+		]
+	}
+	rekogniton.deleteFaces(param, function (err, data) {
+		if (err) console.log(err, err.stack);
+		else res.send({ data: data });
+		console.log(data);
+	})
+})
+
+
+
 // kiểm tra xem app có chạy đúng port 5000 hay không
 app.listen(5000,()=>{
     console.log('server listen on port 5000');
