@@ -195,8 +195,66 @@ app.post("/api/text",(req,res)=>{
 		console.log(data);
 	});
 })
+// tạo collection ID trong aws rekognition
+app.post("/api/collection",(req,res)=>{
+	var param ={
+		CollectionId:'Group23'
+	}
+	rekogniton.createCollection(param, function (err, data) {
+		if (err) console.log(err, err.stack);
+		else res.send({ data: data });
+		console.log(data);
+	});
+})
+
+// lấy tất cả các collection ID
+app.get("/api/listCollection",(req,res)=>{
+	var param ={
+		MaxResults:2
+	}
+	rekogniton.listCollections(param, function (err, data) {
+		if (err) console.log(err, err.stack);
+		else res.send({ data: data });
+		console.log(data);
+	});
+})
+
+//xóa collection ID
+app.post("/api/deleteCollection", (req,res)=>{
+	var param ={
+		CollectionId:'Group23'
+	}
+	rekogniton.deleteCollection(param, function (err, data) {
+		if (err) console.log(err, err.stack);
+		else res.send({ data: data });
+		console.log(data);
+	})
+})
+
+//thêm ảnh indexID
+app.post("/api/addIndex",(req,res)=>{
+	var param = {
+		CollectionId: "Group23",
+		Image: {
+			S3Object: {
+				Bucket: "rekognitionimagess",
+				Name: req.body.imgAddFace
+			}
+		},
+		ExternalImageId: req.body.imgAddFace,
+		DetectionAttributes: ['DEFAULT'],
+		MaxFaces: 1,
+		QualityFilter: "AUTO",
+	}
+	rekogniton.indexFaces(param, function (err, data) {
+		if (err) console.log(err, err.stack);
+		else res.send({ data: data });
+		console.log(data);
+	})
+})
 
 // kiểm tra xem app có chạy đúng port 5000 hay không
 app.listen(5000,()=>{
     console.log('server listen on port 5000');
 })
+
