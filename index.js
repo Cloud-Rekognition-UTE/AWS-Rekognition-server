@@ -20,7 +20,7 @@ const s3 = new S3({
 function uploadFile(file){
     const fileStream = fs.createReadStream(file.path)
     const uploadParams={
-        Bucket:'rekognitionimagess',
+        Bucket:'rekognitionimagesss',
         Body:fileStream,
         Key:file.originalname
     }
@@ -90,7 +90,7 @@ app.post('/api/upload', upload.single('image'), async(req, res)=> {
 	 var param = {
 		 Image: {
 			 S3Object: {
-				 Bucket: 'rekognitionimagess',
+				 Bucket: 'rekognitionimagesss',
 				 Name: req.body.images,
 			 },
 		 }
@@ -107,7 +107,7 @@ app.post('/api/upload', upload.single('image'), async(req, res)=> {
 	 var param = {
 		 Image: {
 			 S3Object: {
-				 Bucket: 'rekognitionimagess',
+				 Bucket: 'rekognitionimagesss',
 				 Name: req.body.images,
 			 },
 		 }
@@ -123,7 +123,7 @@ app.post('/api/upload', upload.single('image'), async(req, res)=> {
 	 var param = {
 		 Image: {
 			 S3Object: {
-				 Bucket: 'rekognitionimagess',
+				 Bucket: 'rekognitionimagesss',
 				 Name: req.body.images,
 			 },
 		 },
@@ -141,7 +141,7 @@ app.post('/api/upload', upload.single('image'), async(req, res)=> {
     var param = {
         Image: {
 			S3Object: {
-				Bucket: 'rekognitionimagess',
+				Bucket: 'rekognitionimagesss',
 				Name: req.body.images,
 			},
 		},
@@ -159,13 +159,13 @@ app.post('/api/comparasion', (req,res)=>{
     var param = {
 		TargetImage: {
 			S3Object: {
-				Bucket: "rekognitionimagess",
+				Bucket: "rekognitionimagesss",
 				Name: req.body.imagesTarget,
 			}
 		},
 		SourceImage: {
 			S3Object: {
-				Bucket: "rekognitionimagess",
+				Bucket: "rekognitionimagesss",
 				Name: req.body.images
 			}
 		},
@@ -184,7 +184,7 @@ app.post("/api/text",(req,res)=>{
 	var param = {
         Image: {
 			S3Object: {
-				Bucket: 'rekognitionimagess',
+				Bucket: 'rekognitionimagesss',
 				Name: req.body.images,
 			},
 		},
@@ -198,7 +198,7 @@ app.post("/api/text",(req,res)=>{
 // tạo collection ID trong aws rekognition
 app.post("/api/collection",(req,res)=>{
 	var param ={
-		CollectionId:'Group23'
+		CollectionId:req.body.collectionname
 	}
 	rekogniton.createCollection(param, function (err, data) {
 		if (err) console.log(err, err.stack);
@@ -237,7 +237,7 @@ app.post("/api/addIndex",(req,res)=>{
 		CollectionId: "Group23",
 		Image: {
 			S3Object: {
-				Bucket: "rekognitionimagess",
+				Bucket: "rekognitionimagesss",
 				Name: req.body.imgAddFace
 			}
 		},
@@ -286,7 +286,7 @@ app.post("/api/searching",(req,res)=>{
 		CollectionId: "Group23",
 		Image: {
 			S3Object: {
-				Bucket: "rekognitionimagess",
+				Bucket: "rekognitionimagesss",
 				Name: req.body.imagesLogin
 			}
 		},
