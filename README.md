@@ -125,3 +125,4 @@
 </table>
 <h4>Credits...</h4>
 <p>1. Cách gắn API: https://console.aws.amazon.com/rekognition/home?region=us-east-1#/</p>
+<p>2. Video tham khảo: https://www.youtube.com/watch?v=UsNJsNEiSpo&t=22s và https://www.youtube.com/watch?v=9Ka1fcn74Hg</p>
