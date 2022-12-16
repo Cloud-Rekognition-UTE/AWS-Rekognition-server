@@ -7,13 +7,14 @@
 <h3>HƯỚNG DẪN SỬ DỤNG</h3>
 <h4>Samples...</h4>
 <p>{PORT}: 5000</p>
-<p>{URL}: localhost</p>
+<p>{URL}: (http://44.201.164.97/)</p>
 <p>scripts: npm start</p>
 <h4>Lấy AWS CLI...</h4>
 <p>Truy cập: https://awsacademy.instructure.com/courses/5744/modules/items/624071</p>
 <p>Nhấn Start Lab</p>
 <p>Nhấn Show AWS CLI</p>
-<p>Lấy 3 thông số ở CLI cho vào config trong aws.config.update(...)</p>
+<p>Lấy 3 thông số ở CLI cho vào config trong awsCLIS3(...)</p>
+<p>Rồi vào ec2 vào thư mục github chạy aws config để bỏ aws CLI vào</p>
 <h4>Test...</h4>
 <table>
   <thead>
